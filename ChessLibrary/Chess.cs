@@ -2,16 +2,16 @@
 
 namespace ChessLibrary
 {
-    public class Chess
+    public class Chess1
     {
         string fen;
         
-        public Chess(string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+        public Chess1(string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
         {
             this.fen = fen;
         }
 
-        public Chess Move(string move)
+        public Chess1 Move(string move)
         {
             Chess nextChess = new Chess(fen);
             return nextChess;
