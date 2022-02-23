@@ -3,7 +3,7 @@ using ChessLibrary;
 
 namespace ChessDemo
 {
-    class Program
+    class ChessDemo
     {
         static void Main(string[] args)
         {
@@ -12,7 +12,9 @@ namespace ChessDemo
             {
                 Console.WriteLine(chess.PrintFen());
                 string move = Console.ReadLine();
-                chess.Move(move);
+                if (move == "") break;
+
+                chess = chess.Move(move);              
             }
         }
     }
