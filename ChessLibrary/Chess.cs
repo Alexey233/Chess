@@ -13,16 +13,18 @@ namespace ChessLibrary
             board = new Board(fen);
         }
 
-        Chess( Board board) {
+        Chess(Board board) 
+        {
             this.board = board;
+            this.fen = board.fen;
         }
 
         public Chess Move(string move)
         {
             FigureMoving figureMoving = new FigureMoving(move);
             Board nextBoart = board.move(figureMoving);
-
             Chess nextChess = new Chess(nextBoart);
+            
             return nextChess;
         }
 
