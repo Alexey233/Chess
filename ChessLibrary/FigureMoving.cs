@@ -11,8 +11,6 @@ namespace ChessLibrary
         public Figure figure { get; private set; }
         public Square squareFrom { get; private set; }
         public Square squareTo { get; private set; }
-
-
         public Figure promotion { get; private set; }
 
 
