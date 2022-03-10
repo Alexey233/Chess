@@ -20,6 +20,6 @@ namespace ChessLibrary
             if (color == Color.white) { return Color.black; }
             if (color == Color.black) { return Color.white; }
             return Color.none;
-        }
+        } 
     }
 }

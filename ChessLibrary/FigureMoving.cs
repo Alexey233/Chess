@@ -30,5 +30,22 @@ namespace ChessLibrary
             this.promotion = (move.Length == 6) ? (Figure)move[5] : Figure.none;
         }
 
+        public int DeltaX { get { return squareTo.x - squareFrom.x; } }
+        public int DeltaY { get { return squareTo.y - squareFrom.y; } }
+        public int AbsDeltaX { get { return Math.Abs(DeltaX); } }
+        public int AbsDeltaY { get { return Math.Abs(DeltaY); } }
+
+        public int SignX { get { return Math.Sign(DeltaX); } }
+        public int SignY { get { return Math.Sign(DeltaY); } }
+
+        public override string ToString()
+        {
+            string text = (char)figure + squareFrom.Name + squareTo.Name;
+                if (promotion != Figure.none)
+                    text += (char)promotion;
+
+            return text;
+        }
+
     }
 }

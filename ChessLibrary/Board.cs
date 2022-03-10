@@ -22,16 +22,14 @@ namespace ChessLibrary
         }
         void Init()
         {
-            
-            // 0                                           1 2    3 4 5
+           
             string[] splitFen = fen.Split();
              
             if (splitFen.Length != 6) { return; }
             InitFigure(splitFen[0]);
             moveColor = (splitFen[1] == "b") ? Color.black : Color.white;
             moveNumber = int.Parse(splitFen[5]);
-            SetFigureAt(new Square("a1"), Figure.whiteKing);
-            SetFigureAt(new Square("h8"), Figure.blackKing);
+
 
         }
 
@@ -60,6 +58,16 @@ namespace ChessLibrary
                 return figures[square.x, square.y];
             }
             return Figure.none;
+        }
+
+        public IEnumerable<FigureOnSquare> YieldFigures()
+        {
+            foreach (Square square in Square.YieldSquares())
+            {
+                if (GetFigureAt(square).GetColor() == moveColor)
+                    yield return new FigureOnSquare(GetFigureAt(square), square);
+            }
+                
         }
 
         void SetFigureAt(Square square, Figure figure)
@@ -112,5 +120,43 @@ namespace ChessLibrary
             return next;
         }
 
+
+        public bool IsCheck()
+        {
+            Board after = new Board(fen);
+            after.moveColor = moveColor.FlipColor();
+            return after.CanEatKing();
+        }
+
+        private bool CanEatKing()
+        {
+            Square badKing = FingBadKing();
+            Moves moves = new Moves(this);
+            foreach (FigureOnSquare fs in YieldFigures())
+            {
+                FigureMoving fm = new FigureMoving(fs, badKing);
+                if (moves.CanMove(fm))
+                    return true;
+            }
+            return false;
+        }
+
+        private Square FingBadKing()
+        {
+            Figure badKing = moveColor == Color.black ? Figure.whiteKing : Figure.blackKing;
+            foreach (Square square in Square.YieldSquares())
+            {
+                if (GetFigureAt(square) == badKing)
+                    return square;
+            } 
+            return Square.DefaultSquare;
+        }
+
+
+        public bool IsCheckAfterMove(FigureMoving fm)
+        {
+            Board after = move(fm);
+            return after.CanEatKing();
+        }
     }
 }
